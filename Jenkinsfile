@@ -11,9 +11,9 @@ pipeline {
             steps {
                 echo "Build the application docker image and push to Docker Hub"
                 sh '''docker build -t 226354/java-webapp:v${BUILD_NUMBER} .
-                docker tag 226354/java-webapp:v${BUILD_NUMBER} 226354/java-webapp:latest
-                docker push 226354/java-webapp:v${BUILD_NUMBER}
-                docker push 226354/java-webapp:latest
+                docker tag vinay/java-webapp:v${BUILD_NUMBER} vinay/java-webapp:latest
+                docker push vinay/java-webapp:v${BUILD_NUMBER}
+                docker push vinay/java-webapp:latest
                 '''
             }
         }
