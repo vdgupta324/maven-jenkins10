@@ -1,9 +1,5 @@
 pipeline {
     agent any
-    tools {
-        jdk 'java21'
-        maven 'maven3' // Ensure Maven is installed and configured in Jenkins
-    }
     stages {
         stage('Download') {
             steps {
@@ -11,22 +7,14 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/bheesham-devops/maven-jenkins10.git'
             }
         }
-        stage('Build') {
+        stage('Build Docker Image') {
             steps {
-                echo "Build the Application"
-                sh 'mvn clean package'
-            }
-        }
-        stage('Archive') {
-            steps {
-                echo "Archive the Application Artifacts"
-                archiveArtifacts artifacts: '**/*.war', followSymlinks: false
-            }
-        }
-        stage('Trigger Deploy Job') {
-            steps {
-                echo "Trigger Deploy Job"
-               build wait: false, job: 'deploy-pipeline'
+                echo "Build the application docker image and push to Docker Hub"
+                sh '''docker build -t bheeshamdevops/java-webapp:v${BUILD_NUMBER} .
+                docker tag bheeshamdevops/java-webapp:v${BUILD_NUMBER} bheeshamdevops/java-webapp:latest
+                docker push bheeshamdevops/java-webapp:v${BUILD_NUMBER}
+                docker push bheeshamdevops/java-webapp:latest
+                '''
             }
         }
     }
