@@ -10,10 +10,10 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 echo "Build the application docker image and push to Docker Hub"
-                sh '''docker build -t vinay/java-webapp:v${BUILD_NUMBER} .
-                docker tag vinay/java-webapp:v${BUILD_NUMBER} vinay/java-webapp:latest
-                docker push vinay/java-webapp:v${BUILD_NUMBER}
-                docker push vinay/java-webapp:latest
+                sh '''docker build -t vinaygupta0708/java-webapp:v${BUILD_NUMBER} .
+                docker tag vinaygupta0708/java-webapp:v${BUILD_NUMBER} vinaygupta0708/java-webapp:latest
+                docker push vinaygupta0708/java-webapp:v${BUILD_NUMBER}
+                docker push vinaygupta0708/java-webapp:latest
                 '''
             }
         }
